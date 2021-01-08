@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.grid__container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+    grid-column-gap: 5px;
+}
+
+
+.low__padding {
+    padding: 7px;
+}
+
+.mg__0 > * {
+    margin: 0;
+}
