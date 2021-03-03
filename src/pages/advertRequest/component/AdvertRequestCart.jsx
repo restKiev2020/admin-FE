@@ -11,7 +11,6 @@ import EditField from '../../../ui/EditField';
 import userService from '../../user/service/userService';
 import {UserHeaderCart} from '../../user/component/UserHeaderCart';
 import advertService from '../../advert/service/advertService';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 import GoBackButton from '../../../ui/GoBackButton';
 
 export default class AdvertRequestCart extends React.Component {
@@ -23,9 +22,10 @@ export default class AdvertRequestCart extends React.Component {
             tempAdvert: null,
             user: null,
             isEdit: false,
-        }
+        };
 
         this.handleSave = this.handleSave.bind(this);
+        this.removeItem = this.removeItem.bind(this);
         this.handleFieldChange = this.handleFieldChange.bind(this);
 
         window.title = 'Запрос';
@@ -39,6 +39,18 @@ export default class AdvertRequestCart extends React.Component {
             tempAdvert: {...advert},
             isEdit: false,
         })
+    }
+
+    async removeItem() {
+        const {advert} = this.state;
+
+        await advertService.removeRequest(advert);
+
+        this.setState({
+            isEdit: false,
+        });
+
+        this.props.history.goBack();
     }
 
     renderButtons() {
@@ -77,7 +89,20 @@ export default class AdvertRequestCart extends React.Component {
                         Редактировать
                     </Button>
                 ))}
-                <GoBackButton/>
+
+                {!isEdit && ( (
+                    <Button
+                        variant="contained"
+                        style={{'margin-right': '10px'}}
+                        size="small"
+                        color="secondary"
+                        onClick={this.removeItem}
+                    >
+                        Удалить
+                    </Button>
+                ))}
+
+                <GoBackButton />
             </div>
         );
     }

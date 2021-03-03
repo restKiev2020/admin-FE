@@ -15,4 +15,11 @@ export default {
             advert: advert
         });
     },
+    async removeAdvertById(advert) {
+        return client.delete(`/api/adverts/${advert.id}`, {})
+    },
+
+    async removeAdvertRequestById(advert) {
+        return client.delete(`/api/advert-requests/${advert.id}`, {})
+    },
 };

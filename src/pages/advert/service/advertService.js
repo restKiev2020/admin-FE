@@ -21,6 +21,14 @@ export default {
         return advertRepository.updateAdvert(advert);
     },
 
+    removeAvert(item) {
+        return advertRepository.removeAdvertById(item);
+    },
+
+    removeRequest(item) {
+        return advertRepository.removeAdvertRequestById(item);
+    },
+
     flatAdvertList(data) {
         return data.map((item) => {
             return this.flatAdvertItem(item);

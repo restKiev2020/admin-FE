@@ -22,8 +22,9 @@ export default class AdvertCart extends React.Component {
             tempAdvert: null,
             user: null,
             isEdit: false,
-        }
+        };
 
+        this.removeItem = this.removeItem.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.handleFieldChange = this.handleFieldChange.bind(this);
         this.resetEdit = this.resetEdit.bind(this);
@@ -75,6 +76,17 @@ export default class AdvertCart extends React.Component {
         })
     }
 
+    async removeItem() {
+        const {advert} = this.state;
+        await advertService.removeAvert(advert);
+
+        this.setState({
+            isEdit: false,
+        });
+
+        this.props.history.goBack();
+    }
+
     renderButtons() {
         const {isEdit} = this.state;
 
@@ -112,6 +124,17 @@ export default class AdvertCart extends React.Component {
                             Редактировать
                         </Button>
                     ))}
+                {!isEdit && ( (
+                    <Button
+                        variant="contained"
+                        style={{'margin-right': '10px'}}
+                        size="small"
+                        color="secondary"
+                        onClick={this.removeItem}
+                    >
+                        Удалить
+                    </Button>
+                ))}
                 <GoBackButton/>
             </div>
         );
