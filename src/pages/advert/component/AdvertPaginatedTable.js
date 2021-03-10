@@ -4,6 +4,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import advertService from '../service/advertService';
 import AdvertEditorTable from './AdvertEditorTable';
 import TableMethod from '../../../model/TableMethod';
+import CustomTable from './CustomTable';
 
 export default class AdvertPaginatedTable extends React.Component {
     constructor(props) {
@@ -60,10 +61,12 @@ export default class AdvertPaginatedTable extends React.Component {
                     onChange={this.handlePageClick}
                     page={page}
                 />
-                <AdvertEditorTable
-                    adverts={advertList}
-                    onChange={this.handleChangeLine}
-                />
+                {/*<AdvertEditorTable*/}
+                {/*    adverts={advertList}*/}
+                {/*    onChange={this.handleChangeLine}*/}
+                {/*/>*/}
+
+                <CustomTable adverts={advertList} />
             </div>
         );
     }
