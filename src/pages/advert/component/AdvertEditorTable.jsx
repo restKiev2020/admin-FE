@@ -29,23 +29,16 @@ export default function AdvertEditorTable ({ adverts, onChange }) {
     };
 
     return (
-        <div
-            style={{
-                overflowY: 'auto',
-                overflowX: 'auto',
-                height: '500px',
-            }}
-        >
             <HotTable
                 settings={{
                     data: adverts,
                     licenseKey: 'non-commercial-and-evaluation',
-                    columnSorting: true,
-                    contextMenu: true,
+                    columnSorting: false,
+                    contextMenu: false,
                     manualColumnMove: true,
                     manualRowMove: true,
                     filters: true,
-                    dropdownMenu: true,
+                    dropdownMenu: false,
                     rowHeaders: true,
                     rowHeights: 55,
                     readOnly: true,
@@ -54,15 +47,19 @@ export default function AdvertEditorTable ({ adverts, onChange }) {
                     hiddenColumns: {
                         indicators: true
                     },
+                    height: '70vh',
+                    selectionMode: 'single',
+
                     beforeHideColumns: (a, b) => {
                         tableSettings.hideColl(a, b);
                     },
                     afterColumnMove: (a, b)=> {
                         tableSettings.moveColl(a, b)
-                    }
+                    },
                 }}
-                afterChange={onChange}
-                afterSelection={handleClickLine}
+                afterGetColHeader={(a, b)=> {
+                    console.log('click')
+                }}
                 modifyColWidth={(width, col) => {
                     if(width > 250){
                         return 250
@@ -71,11 +68,5 @@ export default function AdvertEditorTable ({ adverts, onChange }) {
             >
                 {renderAdvertFields()}
             </HotTable>
-
-            <button onClick={() => {
-                tableSettings.dropSortedSettings();
-                window.location.reload();
-            }}>Показать скрытые колонки</button>
-        </div>
     );
 }
