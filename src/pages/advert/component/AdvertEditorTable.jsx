@@ -1,28 +1,20 @@
 import React from 'react';
 import { HotColumn, HotTable } from '@handsontable/react';
 import tableSettings from '../model/advertTableLinesSettings';
-import {useHistory} from 'react-router';
+import AdvertIdRenderer from '../component/table/AdvertIdRenderer';
 
 export default function AdvertEditorTable ({ adverts, onChange }) {
-    let history = useHistory();
-
-    const handleClickLine = (index, y) => {
-        if (index < 0 || y < 0) return;
-        const id = adverts[index].id;
-        history.push(`/advert/${id}`)
-    }
 
     const renderAdvertFields = () => {
         return tableSettings.getSortedSettings().map((item) => {
             if (item.data == 'documents_ids') return ;
-            const { renderer } = item;
-            const ItemRenderer = renderer
+
             return (
                 <HotColumn
                     key={item.data}
                     {...item}
                 >
-                    {ItemRenderer && <ItemRenderer hot-renderer/>}
+                    {item.data === 'id' ? <AdvertIdRenderer hot-renderer/> : null }
                 </HotColumn>
             );
         });
